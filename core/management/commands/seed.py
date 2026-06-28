@@ -1,6 +1,7 @@
 from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 from core.models import Book
+import os
 
 User = get_user_model()
 
@@ -9,10 +10,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # Librarians
+        password = os.environ.get('SEED_PWD') or input('Enter password for demo accounts: ')
+
         if not User.objects.filter(username='librarian1').exists():
-            User.objects.create_user('librarian1', 'librarian1@test.com', 'demo1234', role='librarian',
+            User.objects.create_superuser('librarian1', 'librarian1@test.com', password, role='librarian',
                                           first_name='Test', last_name='Test')
-            self.stdout.write('Created librarian: librarian1 / demo1234')
+            self.stdout.write('Created librarian: librarian1')
 
         # Readers
         readers = [
@@ -22,9 +25,9 @@ class Command(BaseCommand):
         ]
         for username, first, last, email in readers:
             if not User.objects.filter(username=username).exists():
-                User.objects.create_user(username, email, 'demo1234',
+                User.objects.create_user(username, email, password,
                                          role='reader', first_name=first, last_name=last)
-                self.stdout.write(f'Created reader: {username} / demo1234')
+                self.stdout.write(f'Created reader: {username}')
 
         # Books
         books = [
@@ -47,6 +50,3 @@ class Command(BaseCommand):
                 self.stdout.write(f'Created book: {title}')
 
         self.stdout.write(self.style.SUCCESS('\n✅ Seed complete!'))
-        self.stdout.write('\nLogin credentials:')
-        self.stdout.write('  Librarian: librarian1 / demo1234')
-        self.stdout.write('  Readers:   reader1, reader2, reader3 / demo1234')
