@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+{% block title %}Catalogue{% endblock %}
+{% block content %}
+<div class="section-header">
+  <div>
+    <h1>Catalogue</h1>
+    <p class="page-subtitle" style="margin-bottom:0;">Browse available books</p>
+  </div>
+</div>
+
+<form method="get" class="search-bar">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search by title or author…">
+  <button type="submit" class="btn btn-primary">Search</button>
+  {% if query %}<a href="{% url 'catalogue' %}" class="btn btn-outline">Clear</a>{% endif %}
+</form>
+
+{% if books %}
+<div class="card" style="padding: 0; overflow: hidden;">
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Availability</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book in books %}
+      <tr>
+        <td><strong>{{ book.title }}</strong></td>
+        <td>{{ book.author }}</td>
+        <td>
+          {% if book.is_available %}
+            <span class="badge badge-available">Available</span>
+          {% else %}
+            <span class="badge badge-unavailable">On loan</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div style="font-size:2.5rem;">🔍</div>
+  <p>No books found{% if query %} for "{{ query }}"{% endif %}.</p>
+</div>
+{% endif %}
+{% endblock %}

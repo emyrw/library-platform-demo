@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}
+{% block title %}Folio{% endblock %}
+{% block content %}
+<div class="section-header">
+  <div>
+    <h1>Search Readers</h1>
+    <p class="page-subtitle" style="margin-bottom:0;">Find a reader to view their loans</p>
+  </div>
+  <div class="actions">
+    <a href="{% url 'register_loan' %}" class="btn btn-accent">+ New Loan</a>
+  </div>
+</div>
+
+
+<form method="get" class="search-bar">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search by name or username…">
+  <button type="submit" class="btn btn-primary">Search</button>
+  {% if query %}<a href="{% url 'search_readers' %}" class="btn btn-outline">Clear</a>{% endif %}
+</form>
+
+{% if readers %}
+<div class="card" style="padding: 0; overflow: hidden;">
+  <table>
+    <thead>
+      <tr>
+        <th>Username</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for reader in readers %}
+      <tr>
+        <td>{{ reader.username }}</td>
+        <td>{{ reader.get_full_name|default:"—" }}</td>
+        <td>{{ reader.email|default:"—" }}</td>
+        <td><a href="{% url 'reader_loans' reader.pk %}" class="btn btn-outline btn-sm">View Loans</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div style="font-size:2.5rem;">👥</div>
+  <p>No readers found.</p>
+</div>
+{% endif %}
+{% endblock %}

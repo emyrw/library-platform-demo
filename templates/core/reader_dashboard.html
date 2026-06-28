@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% block title %}My Loans{% endblock %}
+{% block content %}
+<h1>My Loans</h1>
+<p class="page-subtitle">Books currently checked out in your name</p>
+
+{% if loans %}
+<div class="card" style="padding: 0; overflow: hidden;">
+  <table>
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Author</th>
+        <th>Due Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for loan in loans %}
+      <tr>
+        <td><strong>{{ loan.book.title }}</strong></td>
+        <td>{{ loan.book.author }}</td>
+        <td>{{ loan.due_date|date:"d M Y" }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div style="font-size:2.5rem;">📚</div>
+  <p>You have no books on loan.</p>
+  <a href="{% url 'catalogue' %}" class="btn btn-primary" style="margin-top:1rem;">Browse catalogue</a>
+</div>
+{% endif %}
+{% endblock %}

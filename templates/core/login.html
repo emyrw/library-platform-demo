@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1a2e; --page: #f8f7f4; --border: #d8d5d0;
+      --accent: #c0392b; --ink-soft: #4a4a6a;
+      --font-serif: 'Georgia', serif; --font-sans: 'Helvetica Neue', Arial, sans-serif;
+      --radius: 6px;
+    }
+    body { font-family: var(--font-sans); background: var(--ink); color: var(--page); min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .login-wrap { width: 100%; max-width: 380px; padding: 1.5rem; }
+    .brand { font-family: var(--font-serif); font-size: 2.5rem; font-style: italic; text-align: center; margin-bottom: 0.5rem; letter-spacing: 0.02em; }
+    .tagline { text-align: center; color: #888; font-size: 0.85rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2.5rem; }
+    .card { background: #fff; border-radius: var(--radius); padding: 2rem; color: var(--ink); }
+    .form-group { margin-bottom: 1.1rem; }
+    label { display: block; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-soft); margin-bottom: 0.4rem; }
+    input { width: 100%; padding: 0.65rem 0.9rem; border: 1px solid var(--border); border-radius: var(--radius); font-size: 0.95rem; transition: border-color 0.15s; }
+    input:focus { outline: none; border-color: var(--ink); }
+    .btn { display: block; width: 100%; padding: 0.7rem; background: var(--ink); color: #fff; border: none; border-radius: var(--radius); font-size: 0.95rem; cursor: pointer; letter-spacing: 0.03em; transition: opacity 0.15s; margin-top: 1.5rem; }
+    .btn:hover { opacity: 0.85; }
+    .error { background: #fdecea; color: var(--accent); border: 1px solid #f5c6c3; padding: 0.6rem 0.9rem; border-radius: var(--radius); font-size: 0.88rem; margin-bottom: 1.25rem; }
+    .hint { text-align: center; font-size: 0.78rem; color: #999; margin-top: 1.25rem; }
+    .hint a { color: #bbb; }
+  </style>
+</head>
+<body>
+  <div class="login-wrap">
+    <div class="brand">Library Demo</div>
+    <div class="card">
+      {% if messages %}
+        {% for message in messages %}
+          <div class="error">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_username">Username</label>
+          <input type="text" name="username" id="id_username" autofocus>
+        </div>
+        <div class="form-group">
+          <label for="id_password">Password</label>
+          <input type="password" name="password" id="id_password">
+        </div>
+        <button type="submit" class="btn">Sign In</button>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

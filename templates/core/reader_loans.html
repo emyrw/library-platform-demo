@@ -1,0 +1,48 @@
+{% extends "core/base.html" %}
+{% block title %}{{ reader.get_full_name|default:reader.username }}'s Loans{% endblock %}
+{% block content %}
+<div class="section-header">
+  <div>
+    <h1>{{ reader.get_full_name|default:reader.username }}</h1>
+    <p class="page-subtitle" style="margin-bottom:0;">@{{ reader.username }} · All loans</p>
+  </div>
+  <a href="{% url 'register_loan' %}" class="btn btn-accent">+ New Loan</a>
+</div>
+
+{% if loans %}
+<div class="card" style="padding: 0; overflow: hidden;">
+  <table>
+    <thead>
+      <tr>
+        <th>Book</th>
+        <th>Due</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for loan in loans %}
+      <tr>
+        <td><strong>{{ loan.book.title }}</strong><br><small style="color:#888;">{{ loan.book.author }}</small></td>
+        <td>{{ loan.due_date|date:"d M Y" }}</td>
+        <td>
+          <div class="actions">
+            <a href="{% url 'register_return' loan.pk %}" class="btn btn-outline btn-sm">Return</a>
+            <a href="{% url 'extend_loan' loan.pk %}" class="btn btn-outline btn-sm">Extend</a>
+          </div>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+<div class="empty-state">
+  <div style="font-size:2.5rem;">📖</div>
+  <p>This reader has no loans.</p>
+</div>
+{% endif %}
+
+<div style="margin-top:1.5rem;">
+  <a href="{% url 'search_readers' %}" class="btn btn-outline">← Back to readers</a>
+</div>
+{% endblock %}

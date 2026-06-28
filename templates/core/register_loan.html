@@ -1,0 +1,35 @@
+{% extends "core/base.html" %}
+{% block title %}Register Loan{% endblock %}
+{% block content %}
+<h1>Register a Loan</h1>
+<p class="page-subtitle">Check a book out to a reader</p>
+
+<div class="card" style="max-width: 480px;">
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="id_reader">Reader</label>
+      {{ form.reader }}
+    </div>
+    <div class="form-group">
+      <label for="id_book">Book</label>
+      {{ form.book }}
+    </div>
+    <div class="form-group">
+      <label for="id_due_date">Due Date</label>
+      {{ form.due_date }}
+    </div>
+    {% if form.errors %}
+      {% for field, errors in form.errors.items %}
+        {% for error in errors %}
+          <div class="message error">{{ error }}</div>
+        {% endfor %}
+      {% endfor %}
+    {% endif %}
+    <div class="actions" style="margin-top:1.5rem;">
+      <button type="submit" class="btn btn-accent">Register Loan</button>
+      <a href="{% url 'search_readers' %}" class="btn btn-outline">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

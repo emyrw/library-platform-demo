@@ -1,0 +1,24 @@
+{% extends "core/base.html" %}
+{% block title %}Change Due Date{% endblock %}
+{% block content %}
+<h1>Change Due Date</h1>
+<p class="page-subtitle">Modify the return due date for this loan</p>
+
+<div class="card" style="max-width: 420px;">
+  <p><strong>Book:</strong> {{ loan.book.title }}</p>
+  <p style="margin-top:0.5rem;"><strong>Reader:</strong> {{ loan.reader.get_full_name|default:loan.reader.username }}</p>
+  <p style="margin-top:0.5rem;"><strong>Current due date:</strong> {{ loan.due_date|date:"d M Y" }}</p>
+  <hr class="divider">
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label>New Due Date</label>
+      {{ form.due_date }}
+    </div>
+    <div class="actions" style="margin-top:1.5rem;">
+      <button type="submit" class="btn btn-accent">Update Due Date</button>
+      <a href="{% url 'reader_loans' loan.reader.pk %}" class="btn btn-outline">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}
