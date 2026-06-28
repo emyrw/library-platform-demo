@@ -106,7 +106,7 @@ def search_readers(request):
         readers = readers.filter(
             Q(username__icontains=query) | Q(first_name__icontains=query) | Q(last_name__icontains=query)
         )
-    return render(request, 'core/search_readers.html', {'readers': readers, 'query': query})
+    return render(request, 'core/librarian_dashboard.html', {'readers': readers, 'query': query})
 
 
 @librarian_required
