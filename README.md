@@ -1,7 +1,6 @@
 # Library platform demo
 
-A prototype for managing library book loans, with Reader and Librarian roles. Made with Django and SQLite
-
+A prototype for managing library book loans, with Reader and Librarian roles. Made with Django and Postgres
 ## Quick Start (local)
 Install the requirements and perform the DB migrations. A seeder script for local use is provided to populate the DB with dummy data. The app will run on http://localhost:8000.
 ```bash
