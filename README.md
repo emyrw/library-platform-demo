@@ -30,4 +30,7 @@ python manage.py createsuperuser
 ```
 in the project directory and follow the instructions and prompts for username, pwd, etc.
 
+## Deployment
+The production site is deployed in Render under the free tier. After a period of inactivity, services are automatically spinned down, so may take up to a minute to spin up again when using for first time in a while. DB is postgres but will default to SQLite depending on Render free tier availability.
+
 
