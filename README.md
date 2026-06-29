@@ -25,10 +25,10 @@ python manage.py runserver
 - Modify/extend due dates on existing loans
 
 ### Admin / backdoor
-There is an admin panel where you can manually add more users an books. This is accessible at http://localhost:8000/admin/. You need a superuser account to login to the admin panel. To create this, run
+There is an admin panel where you can manually add more users an books. This is accessible at http://localhost:8000/admin/. You need a superuser account to login to the admin panel. The 'librarian1' user created in the seeder script should have these priviledges. Alternatively, to create a new superuser locally you can run
 ```bash
 python manage.py createsuperuser
 ```
-in the project directory, and follow the instructions and prompts for username, pwd, etc.
+in the project directory and follow the instructions and prompts for username, pwd, etc.
 
 

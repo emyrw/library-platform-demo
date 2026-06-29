@@ -191,7 +191,6 @@
     {% if user.is_librarian %}
       <a href="{% url 'search_readers' %}">Search Readers</a>
       <a href="{% url 'register_loan' %}">New Loan</a>
-      <!-- <a href="{% url 'search_readers' %}">Readers</a> -->
       <a href="{% url 'catalogue' %}">Catalogue</a>
     {% else %}
       <a href="{% url 'reader_dashboard' %}">My Loans</a>
