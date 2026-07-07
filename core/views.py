@@ -52,7 +52,7 @@ def catalogue(request):
     books = Book.objects.all()
     if query:
         books = books.filter(
-            Q(title__icontains=query) | Q(author__icontains=query)
+            Q(title__icontains=query) | Q(author__icontains=query) | Q(publisher__icontains=query) | Q(media_type__icontains=query)
         )
     return render(request, 'core/catalogue.html', {'books': books, 'query': query})
 

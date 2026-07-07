@@ -16,7 +16,7 @@ class LoanForm(forms.ModelForm):
     book = forms.ModelChoiceField(
         # Only show books that are not on loan.
         queryset=Book.objects.filter(loans__isnull=True),
-        empty_label='— Select a book —',
+        empty_label='— Select an item —',
     )
 
     class Meta:

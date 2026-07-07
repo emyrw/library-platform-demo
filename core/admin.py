@@ -17,8 +17,9 @@ class CustomUserAdmin(UserAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'author']
-    search_fields = ['title', 'author']
+    list_display = ['title', 'author', 'publisher', 'media_type']
+    search_fields = ['title', 'author', 'publisher', 'media_type']
+    list_filter = ['media_type']
 
 
 @admin.register(Loan)

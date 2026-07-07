@@ -2,10 +2,10 @@
 {% block title %}Confirm Return{% endblock %}
 {% block content %}
 <h1>Confirm Return</h1>
-<p class="page-subtitle">Mark this book as returned</p>
+<p class="page-subtitle">Mark this item as returned</p>
 
 <div class="card" style="max-width: 480px;">
-  <p><strong>Book:</strong> {{ loan.book.title }}</p>
+  <p><strong>Item:</strong> {{ loan.book.title }}</p>
   <p style="margin-top:0.5rem;"><strong>Reader:</strong> {{ loan.reader.get_full_name|default:loan.reader.username }}</p>
   <p style="margin-top:0.5rem;"><strong>Due date:</strong> {{ loan.due_date|date:"d M Y" }}</p>
   <form method="post" style="margin-top:1.5rem;">
