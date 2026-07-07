@@ -2,15 +2,17 @@
 {% block title %}My Loans{% endblock %}
 {% block content %}
 <h1>My Loans</h1>
-<p class="page-subtitle">Books currently checked out in your name</p>
+<p class="page-subtitle">Items currently checked out in your name</p>
 
 {% if loans %}
 <div class="card" style="padding: 0; overflow: hidden;">
   <table>
     <thead>
       <tr>
-        <th>Book</th>
+        <th>Item</th>
         <th>Author</th>
+        <th>Publisher</th>
+        <th>Media Type</th>
         <th>Due Date</th>
       </tr>
     </thead>
@@ -19,6 +21,8 @@
       <tr>
         <td><strong>{{ loan.book.title }}</strong></td>
         <td>{{ loan.book.author }}</td>
+        <td>{{ loan.book.publisher }}</td>
+        <td>{{ loan.book.media_type }}</td>
         <td>{{ loan.due_date|date:"d M Y" }}</td>
       </tr>
       {% endfor %}
@@ -28,7 +32,7 @@
 {% else %}
 <div class="empty-state">
   <div style="font-size:2.5rem;">📚</div>
-  <p>You have no books on loan.</p>
+  <p>You have no items on loan.</p>
   <a href="{% url 'catalogue' %}" class="btn btn-primary" style="margin-top:1rem;">Browse catalogue</a>
 </div>
 {% endif %}

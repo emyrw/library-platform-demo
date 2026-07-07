@@ -31,22 +31,35 @@ class Command(BaseCommand):
 
         # Books
         books = [
-            ('To Kill a Mockingbird', 'Harper Lee'),
-            ('1984', 'George Orwell'),
-            ('The Great Gatsby', 'F. Scott Fitzgerald'),
-            ('Sapiens', 'Yuval Noah Harari'),
-            ('Dune', 'Frank Herbert'),
-            ('The Road', 'Cormac McCarthy'),
-            ('Educated', 'Tara Westover'),
-            ('The Name of the Wind', 'Patrick Rothfuss'),
-            ('Atomic Habits', 'James Clear'),
-            ('The Hitchhiker\'s Guide to the Galaxy', 'Douglas Adams'),
-            ('Normal People', 'Sally Rooney'),
-            ('Thinking, Fast and Slow', 'Daniel Kahneman'),
+            ('To Kill a Mockingbird', 'Harper Lee', 'J.B. Lippincott & Co.', Book.BOOK),
+            ('1984', 'George Orwell', 'Secker & Warburg', Book.BOOK),
+            ('The Great Gatsby', 'F. Scott Fitzgerald', 'Charles Scribner\'s Sons', Book.BOOK),
+            ('Sapiens', 'Yuval Noah Harari','Harvill Secker', Book.BOOK),
+            ('Dune', 'Frank Herbert', 'Chilton Books', Book.BOOK),
+            ('The Road', 'Cormac McCarthy', 'Alfred A. Knopf', Book.BOOK),
+            ('Educated', 'Tara Westover', 'Random House', Book.BOOK),
+            ('Atomic Habits', 'James Clear', 'Avery', Book.BOOK),
+            ('The Hitchhiker\'s Guide to the Galaxy', 'Douglas Adams', 'Pan Books', Book.BOOK),
+            ('Normal People', 'Sally Rooney', 'Faber & Faber', Book.BOOK),
+            ('Thinking, Fast and Slow', 'Daniel Kahneman', 'Farrar, Straus and Giroux', Book.BOOK),
+            # CDs
+            ('Kind of Blue', 'Miles Davis', 'Columbia Records', Book.CD),
+            ('Rumours', 'Fleetwood Mac', 'Warner Bros. Records', Book.CD),
+            ('Back to Black', 'Amy Winehouse', 'Island Records', Book.CD),
+            # DVDs
+            ('Planet Earth II', 'BBC', 'BBC Studios', Book.DVD),
+            ('2001: A Space Odyssey', 'Stanley Kubrick', 'MGM', Book.DVD),
         ]
-        for title, author in books:
-            if not Book.objects.filter(title=title, author=author).exists():
-                Book.objects.create(title=title, author=author)
-                self.stdout.write(f'Created book: {title}')
+
+        for title, author, publisher, media_type in books:
+            obj, created = Book.objects.update_or_create(
+                title=title,
+                author=author,
+                defaults=dict(
+                    publisher=publisher,
+                    media_type=media_type
+                )
+            )
+        action = 'Created' if created else 'Updated'
 
         self.stdout.write(self.style.SUCCESS('\n✅ Seed complete!'))

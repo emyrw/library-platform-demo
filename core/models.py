@@ -16,8 +16,23 @@ class User(AbstractUser):
 
 
 class Book(models.Model):
+    BOOK = 'book'
+    CD = 'cd'
+    DVD = 'dvd'
+    MAGAZINE = 'magazine'
+    AUDIOBOOK = 'audiobook'
+    MEDIA_TYPE_CHOICES = [
+        (BOOK, 'Book'),
+        (CD, 'CD'),
+        (DVD, 'DVD'),
+        (MAGAZINE, 'Magazine'),
+        (AUDIOBOOK, 'Audiobook'),
+    ]
+
     title = models.CharField(max_length=255)
     author = models.CharField(max_length=255)
+    publisher = models.CharField(max_length=255, blank=True)
+    media_type = models.CharField(max_length=20, choices=MEDIA_TYPE_CHOICES, default=BOOK)
    
     def is_available(self):
         return self.loans.count() == 0;

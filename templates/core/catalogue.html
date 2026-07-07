@@ -4,12 +4,12 @@
 <div class="section-header">
   <div>
     <h1>Catalogue</h1>
-    <p class="page-subtitle" style="margin-bottom:0;">Browse available books</p>
+    <p class="page-subtitle" style="margin-bottom:0;">Browse available items</p>
   </div>
 </div>
 
 <form method="get" class="search-bar">
-  <input type="text" name="q" value="{{ query }}" placeholder="Search by title or author…">
+  <input type="text" name="q" value="{{ query }}" placeholder="Search by title, author, publisher, or media type…">
   <button type="submit" class="btn btn-primary">Search</button>
   {% if query %}<a href="{% url 'catalogue' %}" class="btn btn-outline">Clear</a>{% endif %}
 </form>
@@ -21,6 +21,8 @@
       <tr>
         <th>Title</th>
         <th>Author</th>
+        <th>Publisher</th>
+        <th>Media Type</th>
         <th>Availability</th>
       </tr>
     </thead>
@@ -29,6 +31,8 @@
       <tr>
         <td><strong>{{ book.title }}</strong></td>
         <td>{{ book.author }}</td>
+        <td>{{ book.publisher }}</td>
+        <td>{{ book.media_type }}</td>
         <td>
           {% if book.is_available %}
             <span class="badge badge-available">Available</span>
@@ -44,7 +48,7 @@
 {% else %}
 <div class="empty-state">
   <div style="font-size:2.5rem;">🔍</div>
-  <p>No books found{% if query %} for "{{ query }}"{% endif %}.</p>
+  <p>No items found{% if query %} for "{{ query }}"{% endif %}.</p>
 </div>
 {% endif %}
 {% endblock %}
